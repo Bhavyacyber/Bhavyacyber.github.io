@@ -18,6 +18,29 @@ function App() {
       lenis.destroy()
     }
   }, [])
+    useEffect(() => {
+      const elements = document.querySelectorAll('.reveal')
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible')
+              observer.unobserve(entry.target)
+            }
+          })
+        },
+        {
+          threshold: 0.1,
+        },
+      )
+
+      elements.forEach((element) => observer.observe(element))
+
+      return () => {
+        observer.disconnect()
+      }
+    }, [])
 
     const revealRef = useRef<HTMLDivElement>(null)
 
@@ -95,7 +118,7 @@ function App() {
       </section>
 
       {/* ABOUT */}
-      <section className="about" id="about">
+      <section className="about reveal" id="about">
         <div className="section-label">01 — ABOUT</div>
 
         <div className="about-content">
@@ -127,7 +150,7 @@ function App() {
             </section>
 
       {/* EXPERTISE */}
-      <section className="expertise" id="expertise">
+      <section className="expertise reveal" id="expertise">
         <div className="section-label">02 — EXPERTISE</div>
 
         <div className="expertise-intro">
@@ -201,7 +224,7 @@ function App() {
         </div>
       </section>
           {/* PROJECTS */}
-      <section className="projects" id="projects">
+      <section className="projects reveal" id="projects">
         <div className="section-label">03 — SELECTED WORK</div>
 
         <div className="projects-intro">
@@ -305,7 +328,7 @@ function App() {
       </section>
 
       {/* CONTACT */}
-<section className="contact" id="contact">
+<section className="contact reveal" id="contact">
   <div className="section-label">04 — CONTACT</div>
 
   <div className="contact-content">
