@@ -56,12 +56,11 @@
 .hero h1 span {
   display: block;
   margin-left: 0.08em;
-  margin-top: 0.12em;
   font-size: 0.38em;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   font-weight: 400;
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 .hero-description {
@@ -120,6 +119,67 @@
   width: 1px;
   height: 60px;
   background: currentColor;
+}
+
+.hero-photo {
+  position: absolute;
+  right: 6vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(34vw, 480px);
+  height: min(72vh, 680px);
+  overflow: hidden;
+  border-radius: 0;
+  z-index: 1;
+  isolation: isolate;
+}
+
+.hero-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      #080808 0%,
+      rgba(8, 8, 8, 0.15) 35%,
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(8, 8, 8, 0.45) 0%,
+      transparent 25%,
+      transparent 70%,
+      rgba(8, 8, 8, 0.65) 100%
+    );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border: 1px solid rgba(245, 245, 245, 0.18);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(100%) contrast(1.08);
+  transform: scale(1.04);
+  transition:
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s ease;
+}
+
+.hero-photo:hover img {
+  transform: scale(1.1);
+  filter: grayscale(20%) contrast(1.05);
 }
 
 
@@ -1020,7 +1080,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-content {
-    will-change: transform;
+    
     animation: none;
   }
 }

@@ -113,6 +113,7 @@ function App() {
            <a href="#contact">Contact</a>
          </div>
         </nav>
+
       {/* HERO */}
       <section className="hero">
         <div className="hero-content">
@@ -139,43 +140,49 @@ function App() {
           </div>
         </div>
 
+        <div className="hero-photo">
+          <img
+            src="/profile.jpg"
+            alt="Bhavya - Cybersecurity Professional"
+          />
+        </div>
+
         <div className="hero-scroll">
           <span>Scroll to explore</span>
           <span className="scroll-line" />
         </div>
       </section>
 
+
       {/* ABOUT */}
       <section className="about reveal" id="about">
-        <div className="section-label">01 — ABOUT</div>
+        <div className="section-label">ABOUT</div>
 
         <div className="about-content">
           <h2>
-            Building security
-            <br />
-            with purpose.
+            Security is not just
+            <span> technology.</span>
           </h2>
 
           <div className="about-text">
             <p>
-              I am a cybersecurity professional focused on understanding
-              threats, detecting attacks, and building practical security
-              solutions.
+              I am a cybersecurity professional focused on threat detection,
+              security research, and building resilient digital environments.
             </p>
 
             <p>
-              My work spans security operations, threat detection, SIEM
-              engineering, security research, and governance and compliance.
+              My work combines security operations, SIEM engineering,
+              vulnerability assessment, and practical security research.
             </p>
 
             <p>
-              I believe effective cybersecurity is not only about responding
-              to attacks — it is about understanding how systems fail and
-              designing them to become more resilient.
+              I enjoy understanding how attacks work, detecting them through
+              meaningful telemetry, and turning security data into actionable
+              defense.
             </p>
           </div>
         </div>
-            </section>
+      </section>
 
       {/* EXPERTISE */}
       <section className="expertise reveal" id="expertise">
@@ -355,51 +362,44 @@ function App() {
         </div>
       </section>
 
-      {/* CONTACT */}
+{/* CONTACT */}
 <section className="contact reveal" id="contact">
-  <div className="section-label">04 — CONTACT</div>
+  <div className="section-inner">
+    <p className="section-label">CONTACT</p>
 
-  <div className="contact-content">
-    <div>
-      <p className="contact-kicker">OPEN TO OPPORTUNITIES</p>
+    <h2>
+      Let's build something
+      <span>secure.</span>
+    </h2>
 
-      <h2>
-        Let's
-        <br />
-        connect.
-      </h2>
-    </div>
+    <p className="contact-description">
+      Interested in cybersecurity, security research, or collaborating
+      on something meaningful? Get in touch.
+    </p>
 
-    <div className="contact-details">
-      <p>
-        Interested in cybersecurity, security operations, threat
-        detection, research, or collaborative opportunities?
-      </p>
-
-      <a href="mailto:your-email@example.com">
-        your-email@example.com
+    <div className="contact-links">
+      <a href="mailto:bhavyanagasai@gmail.com">
+        Email
       </a>
 
-      <div className="contact-links">
-        <a
-          href="https://github.com/Bhavyacyber"
-          target="_blank"
-          rel="noreferrer"
-        >
-          GitHub ↗
-        </a>
+      <a
+        href="https://www.linkedin.com/in/bhavya-naga-sai-parvathi-kshatri-3140251a2"
+        target="_blank"
+        rel="noreferrer"
+      >
+        LinkedIn
+      </a>
 
-        <a
-          href="https://www.linkedin.com/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          LinkedIn ↗
-        </a>
-      </div>
+      <a
+        href="https://github.com/Bhavyacyber"
+        target="_blank"
+        rel="noreferrer"
+      >
+        GitHub
+      </a>
     </div>
   </div>
-      </section>
+</section>
 
       {/* FOOTER */}
       <footer className="site-footer">
