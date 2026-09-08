@@ -1019,6 +1019,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-content {
+    will-change: transform;
     animation: none;
   }
 }

@@ -18,6 +18,34 @@ function App() {
       lenis.destroy()
     }
   }, [])
+
+
+    useEffect(() => {
+  const hero = document.querySelector('.hero-content') as HTMLElement | null
+
+  if (!hero) {
+    return
+  }
+
+  const handleMouseMove = (event: MouseEvent) => {
+    const x = (event.clientX / window.innerWidth - 0.5) * 20
+    const y = (event.clientY / window.innerHeight - 0.5) * 20
+
+    hero.style.transform = `translate(${x}px, ${y}px)`
+  }
+
+  const handleMouseLeave = () => {
+    hero.style.transform = 'translate(0, 0)'
+  }
+
+  window.addEventListener('mousemove', handleMouseMove)
+  window.addEventListener('mouseleave', handleMouseLeave)
+
+  return () => {
+    window.removeEventListener('mousemove', handleMouseMove)
+    window.removeEventListener('mouseleave', handleMouseLeave)
+  }
+}, [])  
     useEffect(() => {
       const elements = document.querySelectorAll('.reveal')
 
