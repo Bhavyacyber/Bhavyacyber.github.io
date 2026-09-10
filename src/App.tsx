@@ -110,6 +110,7 @@ function App() {
            <a href="#about">About</a>
            <a href="#expertise">Expertise</a>
            <a href="#projects">Work</a>
+           <a href="/blog/">Blog</a>
            <a href="#contact">Contact</a>
          </div>
         </nav>
