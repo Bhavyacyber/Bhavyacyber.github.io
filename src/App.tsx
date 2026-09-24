@@ -10,7 +10,7 @@ import './App.css'
 const InteractiveStage = lazy(() => import('./components/InteractiveStage'))
 
 const projects = portfolioData.projects
-const skills = portfolioData.identity.focusAreas
+const skills = portfolioData.technicalAreas
 
 function Reveal({ children, className = '', id }: { children: ReactNode; className?: string; id?: string }) {
   return (
@@ -47,7 +47,7 @@ function App() {
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
         <nav className={`portfolio-links ${menuOpen ? 'is-open' : ''}`}>
-          {['About', 'Skills', 'Work', 'Experience', 'Contact'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}
+          {['About', 'Skills', 'Work', 'Experience', 'Workshops', 'Contact'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}
           <ThemeToggle theme={theme} onToggle={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         </nav>
       </header>
@@ -77,19 +77,24 @@ function App() {
 
         <Reveal className="portfolio-section skills-section" id="skills">
           <div className="section-kicker"><span>03</span> CAPABILITIES</div>
-          <div className="section-heading"><h2>From signal<br /><em>to strategy.</em></h2><p>Explore the disciplines behind the work. Each capability is grounded in hands-on analysis, useful telemetry, and better decisions under pressure.</p></div>
-          <div className="skill-grid">{skills.map((skill, index) => <motion.article key={skill} whileHover={{ y: -6, rotateX: 3, rotateY: -3 }}><span>0{index + 1}</span><h3>{skill}</h3><ArrowUpRight size={18} /></motion.article>)}</div>
+          <div className="section-heading"><h2>Technical<br /><em>areas.</em></h2><p>Grouped areas from hands-on labs, security-engineering projects, and internship environments.</p></div>
+          <div className="skill-grid">{skills.map((area, index) => <motion.article key={area.name} whileHover={{ y: -6, rotateX: 3, rotateY: -3 }}><span>0{index + 1}</span><h3>{area.name}</h3><div className="tag-row">{area.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></motion.article>)}</div>
         </Reveal>
 
         <Reveal className="portfolio-section work-section" id="work">
           <div className="section-kicker"><span>04</span> SELECTED WORK</div>
-          <div className="section-heading"><h2>Research.<br /><em>Detection.</em><br />Defense.</h2><div className="filter-row">{['ALL', 'SOC', 'APPLICATION', 'THREAT'].map((item) => <button className={filter === item ? 'active' : ''} key={item} type="button" onClick={() => setFilter(item)}>{item}</button>)}</div></div>
+          <div className="section-heading"><h2>Research.<br /><em>Detection.</em><br />Defense.</h2><div className="filter-row">{['ALL', 'SOC', 'APPLICATION', 'THREAT', 'AI'].map((item) => <button className={filter === item ? 'active' : ''} key={item} type="button" onClick={() => setFilter(item)}>{item}</button>)}</div></div>
           <motion.div layout className="project-grid">{visibleProjects.map((project) => <motion.article layout key={project.title} className="project-tile"><div className="tile-meta"><span>{project.category}</span><ArrowUpRight size={17} /></div><h3>{project.title}</h3><p>{project.details}</p><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><span className="project-meta">{project.meta}</span></motion.article>)}</motion.div>
         </Reveal>
 
         <Reveal className="portfolio-section experience-section" id="experience">
           <div className="section-kicker"><span>05</span> EXPERIENCE / APPROACH</div>
           <div className="timeline">{portfolioData.experience.map((item) => <article key={`${item.role}-${item.company}`}><span>{item.period}</span><div><h3>{item.role}</h3><p>{item.company}</p>{item.details.map((detail) => <p key={detail}>{detail}</p>)}</div></article>)}</div>
+        </Reveal>
+
+        <Reveal className="portfolio-section experience-section" id="workshops">
+          <div className="section-kicker"><span>06</span> HANDS-ON WORKSHOPS</div>
+          <div className="timeline">{portfolioData.workshops.map((workshop) => <article key={workshop.title}><span>{workshop.meta}</span><div><h3>{workshop.title}</h3>{workshop.details.map((detail) => <p key={detail}>{detail}</p>)}</div></article>)}</div>
         </Reveal>
 
         <section className="contact-section" id="contact"><div className="contact-inner"><div><p className="section-kicker"><span>07</span> CONTACT</p><h2>Open to the <em>right role.</em></h2><p>{portfolioData.identity.status}. Reach out by email for opportunities, research, or collaboration.</p><div className="contact-links"><a href={`mailto:${portfolioData.links.email}`}><Mail size={15} /> Email</a><a href={portfolioData.links.linkedin} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> LinkedIn</a><a href={portfolioData.links.blog} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> Security blog</a></div></div><form onSubmit={handleSubmit}><label>Name<input required name="name" placeholder="Your name" /></label><label>Email<input required type="email" name="email" placeholder="you@example.com" /></label><label>Message<textarea required name="message" placeholder="Tell me about the role or work" rows={3} /></label><button className="button button-dark" type="submit">{submitted ? 'Message ready' : 'Send inquiry'} <ArrowUpRight size={15} /></button></form></div></section>
