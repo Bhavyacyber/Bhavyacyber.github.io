@@ -1,421 +1,102 @@
-import { useEffect, useRef } from 'react'
-import Lenis from 'lenis'
+import { motion } from 'framer-motion'
+import { ArrowUpRight, GitBranch, Mail, Menu, X } from 'lucide-react'
+import { lazy, Suspense, useEffect, useState, type FormEvent, type ReactNode } from 'react'
+import ThemeToggle from './components/ThemeToggle'
+import InteractivePortrait from './components/InteractivePortrait'
 import Cursor from './components/Cursor'
+import { portfolioData } from './data/portfolio'
 import './App.css'
 
+const InteractiveStage = lazy(() => import('./components/InteractiveStage'))
+
+const projects = portfolioData.projects
+const skills = portfolioData.identity.focusAreas
+
+function Reveal({ children, className = '', id }: { children: ReactNode; className?: string; id?: string }) {
+  return (
+    <motion.div id={id} className={className} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.65, ease: 'easeOut' }}>
+      {children}
+    </motion.div>
+  )
+}
+
 function App() {
-    useEffect(() => {
-    const lenis = new Lenis()
-
-    function raf(time: number) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-
-    requestAnimationFrame(raf)
-
-    return () => {
-      lenis.destroy()
-    }
-  }, [])
-
-
-    useEffect(() => {
-  const hero = document.querySelector('.hero-content') as HTMLElement | null
-
-  if (!hero) {
-    return
-  }
-
-  const handleMouseMove = (event: MouseEvent) => {
-    const x = (event.clientX / window.innerWidth - 0.5) * 20
-    const y = (event.clientY / window.innerHeight - 0.5) * 20
-
-    hero.style.transform = `translate(${x}px, ${y}px)`
-  }
-
-  const handleMouseLeave = () => {
-    hero.style.transform = 'translate(0, 0)'
-  }
-
-  window.addEventListener('mousemove', handleMouseMove)
-  window.addEventListener('mouseleave', handleMouseLeave)
-
-  return () => {
-    window.removeEventListener('mousemove', handleMouseMove)
-    window.removeEventListener('mouseleave', handleMouseLeave)
-  }
-}, [])  
-    useEffect(() => {
-      const elements = document.querySelectorAll('.reveal')
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible')
-              observer.unobserve(entry.target)
-            }
-          })
-        },
-        {
-          threshold: 0.1,
-        },
-      )
-
-      elements.forEach((element) => observer.observe(element))
-
-      return () => {
-        observer.disconnect()
-      }
-    }, [])
-
-    const revealRef = useRef<HTMLDivElement>(null)
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [filter, setFilter] = useState('ALL')
+  const [submitted, setSubmitted] = useState(false)
 
   useEffect(() => {
-    const elements = revealRef.current?.querySelectorAll('.reveal')
+    document.documentElement.dataset.theme = theme
+  }, [theme])
 
-    if (!elements) return
+  const visibleProjects = filter === 'ALL' ? projects : projects.filter((project) => project.category.includes(filter))
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('reveal-visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      {
-        threshold: 0.15,
-      },
-    )
-
-    elements.forEach((element) => observer.observe(element))
-
-    return () => observer.disconnect()
-  }, [])
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setSubmitted(true)
+  }
 
   return (
-      <>
-    <Cursor />
-
-    <main>
-        <nav className="site-nav">
-         <a href="#" className="site-logo">
-           BHAVYA<span>.</span>
-        </a>
-
-        <div className="site-nav-links">
-           <a href="#about">About</a>
-           <a href="#expertise">Expertise</a>
-           <a href="#projects">Work</a>
-           <a href="/blog/">Blog</a>
-           <a href="#contact">Contact</a>
-         </div>
+    <>
+      <Cursor />
+      <header className="portfolio-nav">
+        <a href="#top" className="brand-mark">BHAVYA<span>.</span></a>
+        <span className="availability"><i /> {portfolioData.identity.availability.map((item) => <span className="availability-item" key={item}>{item}</span>)}</span>
+        <button className="menu-toggle icon-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">
+          {menuOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
+        <nav className={`portfolio-links ${menuOpen ? 'is-open' : ''}`}>
+          {['About', 'Skills', 'Work', 'Experience', 'Contact'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}
+          <ThemeToggle theme={theme} onToggle={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         </nav>
+      </header>
 
-      {/* HERO */}
-      <section className="hero">
-        <div className="hero-content">
-          <p className="hero-label">
-            CYBERSECURITY • RESEARCH • DEFENSE
-          </p>
-
-          <h1>
-            Bhavya
-            <span>Cybersecurity</span>
-          </h1>
-
-          <p className="hero-description">
-            Cybersecurity professional focused on threat detection,
-            security research, and building resilient digital environments.
-          </p>
-
-          <div className="hero-actions">
-            <a href="#projects">Explore my work</a>
-            <a href="#contact">Get in touch</a>
-            <a href="/resume.pdf" target="_blank" rel="noreferrer">
-              View Resume
-            </a>
+      <main id="top">
+        <section className="portfolio-hero">
+          <div className="hero-copy">
+            <p className="eyebrow"><span>01</span> CYBERSECURITY / RESEARCH / DEFENSE</p>
+            <h1>{portfolioData.identity.displayName}<span>{portfolioData.identity.title}</span></h1>
+            <InteractivePortrait />
+            <p className="hero-lede">I design resilient digital environments through threat detection, security research, and practical defense.</p>
+            <p className="hero-location">{portfolioData.identity.location}</p>
+            <div className="hero-actions">
+              <a className="button button-primary" href="#work">Explore work <ArrowUpRight size={15} /></a>
+              <a className="button button-ghost" href={portfolioData.links.cv}>View CV <ArrowUpRight size={15} /></a>
+            </div>
+            <div className="hero-socials"><a href={portfolioData.links.github} aria-label="GitHub"><GitBranch size={17} /></a><a href={portfolioData.links.blog} aria-label="Security blog"><ArrowUpRight size={17} /></a><span>SCROLL TO EXPLORE ↓</span></div>
           </div>
-        </div>
+          <Suspense fallback={<div className="stage-loading">LOADING 3D STAGE...</div>}><InteractiveStage /></Suspense>
+        </section>
 
-        <div className="hero-photo">
-          <img
-            src="/profile.jpg"
-            alt="Bhavya - Cybersecurity Professional"
-          />
-        </div>
+        <Reveal className="portfolio-section about-grid" id="about">
+          <div className="section-kicker"><span>02</span> ABOUT THE PRACTICE</div>
+          <div className="about-story"><h2>How systems fail <em>under attack.</em></h2><p>{portfolioData.about.copy}</p></div>
+          <div className="facts-list">{portfolioData.about.facts.map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
+        </Reveal>
 
-        <div className="hero-scroll">
-          <span>Scroll to explore</span>
-          <span className="scroll-line" />
-        </div>
-      </section>
+        <Reveal className="portfolio-section skills-section" id="skills">
+          <div className="section-kicker"><span>03</span> CAPABILITIES</div>
+          <div className="section-heading"><h2>From signal<br /><em>to strategy.</em></h2><p>Explore the disciplines behind the work. Each capability is grounded in hands-on analysis, useful telemetry, and better decisions under pressure.</p></div>
+          <div className="skill-grid">{skills.map((skill, index) => <motion.article key={skill} whileHover={{ y: -6, rotateX: 3, rotateY: -3 }}><span>0{index + 1}</span><h3>{skill}</h3><ArrowUpRight size={18} /></motion.article>)}</div>
+        </Reveal>
 
+        <Reveal className="portfolio-section work-section" id="work">
+          <div className="section-kicker"><span>04</span> SELECTED WORK</div>
+          <div className="section-heading"><h2>Research.<br /><em>Detection.</em><br />Defense.</h2><div className="filter-row">{['ALL', 'SOC', 'APPLICATION', 'THREAT'].map((item) => <button className={filter === item ? 'active' : ''} key={item} type="button" onClick={() => setFilter(item)}>{item}</button>)}</div></div>
+          <motion.div layout className="project-grid">{visibleProjects.map((project) => <motion.article layout key={project.title} className="project-tile"><div className="tile-meta"><span>{project.category}</span><ArrowUpRight size={17} /></div><h3>{project.title}</h3><p>{project.details}</p><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><span className="project-meta">{project.meta}</span></motion.article>)}</motion.div>
+        </Reveal>
 
-      {/* ABOUT */}
-      <section className="about reveal" id="about">
-        <div className="section-label">ABOUT</div>
+        <Reveal className="portfolio-section experience-section" id="experience">
+          <div className="section-kicker"><span>05</span> EXPERIENCE / APPROACH</div>
+          <div className="timeline">{portfolioData.experience.map((item) => <article key={`${item.role}-${item.company}`}><span>{item.period}</span><div><h3>{item.role}</h3><p>{item.company}</p>{item.details.map((detail) => <p key={detail}>{detail}</p>)}</div></article>)}</div>
+        </Reveal>
 
-        <div className="about-content">
-          <h2>
-            Security is not just
-            <span> technology.</span>
-          </h2>
+        <section className="contact-section" id="contact"><div className="contact-inner"><div><p className="section-kicker"><span>07</span> CONTACT</p><h2>Open to the <em>right role.</em></h2><p>{portfolioData.identity.status}. Reach out by email for opportunities, research, or collaboration.</p><div className="contact-links"><a href={`mailto:${portfolioData.links.email}`}><Mail size={15} /> Email</a><a href={portfolioData.links.linkedin} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> LinkedIn</a><a href={portfolioData.links.blog} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> Security blog</a></div></div><form onSubmit={handleSubmit}><label>Name<input required name="name" placeholder="Your name" /></label><label>Email<input required type="email" name="email" placeholder="you@example.com" /></label><label>Message<textarea required name="message" placeholder="Tell me about the role or work" rows={3} /></label><button className="button button-dark" type="submit">{submitted ? 'Message ready' : 'Send inquiry'} <ArrowUpRight size={15} /></button></form></div></section>
+      </main>
 
-          <div className="about-text">
-            <p>
-              I am a cybersecurity professional focused on threat detection,
-              security research, and building resilient digital environments.
-            </p>
-
-            <p>
-              My work combines security operations, SIEM engineering,
-              vulnerability assessment, and practical security research.
-            </p>
-
-            <p>
-              I enjoy understanding how attacks work, detecting them through
-              meaningful telemetry, and turning security data into actionable
-              defense.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* EXPERTISE */}
-      <section className="expertise reveal" id="expertise">
-        <div className="section-label">02 — EXPERTISE</div>
-
-        <div className="expertise-intro">
-          <h2>
-            Security from
-            <br />
-            detection to defense.
-          </h2>
-
-          <p>
-            My focus is on practical cybersecurity — understanding threats,
-            detecting malicious activity, investigating incidents, and
-            strengthening systems against future attacks.
-          </p>
-        </div>
-
-        <div className="expertise-grid">
-          <article className="expertise-card">
-            <span>01</span>
-            <h3>Threat Detection</h3>
-            <p>
-              Identifying suspicious activity through log analysis,
-              behavioral detection, and security monitoring.
-            </p>
-          </article>
-
-          <article className="expertise-card">
-            <span>02</span>
-            <h3>SOC &amp; SIEM</h3>
-            <p>
-              Building detection pipelines, analyzing alerts, and
-              engineering practical SOC workflows.
-            </p>
-          </article>
-
-          <article className="expertise-card">
-            <span>03</span>
-            <h3>Security Research</h3>
-            <p>
-              Exploring attack techniques, vulnerabilities, and
-              defensive strategies through hands-on research.
-            </p>
-          </article>
-
-          <article className="expertise-card">
-            <span>04</span>
-            <h3>Incident Response</h3>
-            <p>
-              Investigating security events and developing structured
-              approaches to containment and response.
-            </p>
-          </article>
-
-          <article className="expertise-card">
-            <span>05</span>
-            <h3>GRC &amp; Compliance</h3>
-            <p>
-              Understanding cybersecurity risk, governance, privacy,
-              and regulatory compliance requirements.
-            </p>
-          </article>
-
-          <article className="expertise-card">
-            <span>06</span>
-            <h3>AI Security</h3>
-            <p>
-              Exploring security risks across AI and GenAI systems,
-              including emerging attack and defense techniques.
-            </p>
-          </article>
-        </div>
-      </section>
-          {/* PROJECTS */}
-      <section className="projects reveal" id="projects">
-        <div className="section-label">03 — SELECTED WORK</div>
-
-        <div className="projects-intro">
-          <h2>
-            Research.
-            <br />
-            Detection.
-            <br />
-            Defense.
-          </h2>
-
-          <p>
-            Hands-on cybersecurity projects focused on threat detection,
-            security operations, attack simulation, and practical defense.
-          </p>
-        </div>
-
-        <div className="project-list">
-          <article className="project-card">
-            <div className="project-number">01</div>
-
-            <div className="project-content">
-              <p className="project-type">
-                SIEM / THREAT DETECTION
-              </p>
-
-              <h3>Wazuh SOC Detection Lab</h3>
-
-              <p>
-                A hands-on security operations lab using Wazuh, Sysmon,
-                Windows telemetry, Kali Linux, and Python-based threat
-                enrichment to detect and investigate malicious activity.
-              </p>
-
-              <div className="project-tags">
-                <span>Wazuh</span>
-                <span>Sysmon</span>
-                <span>SIEM</span>
-                <span>Python</span>
-                <span>MITRE ATT&amp;CK</span>
-              </div>
-
-              <a
-                href="https://github.com/Bhavyacyber/wazuh-soc-detection-lab"
-                target="_blank"
-                rel="noreferrer"
-              >
-                View project →
-              </a>
-            </div>
-          </article>
-
-          <article className="project-card">
-            <div className="project-number">02</div>
-
-            <div className="project-content">
-              <p className="project-type">
-                CYBERSECURITY RESEARCH
-              </p>
-
-              <h3>Attack Detection &amp; Analysis</h3>
-
-              <p>
-                Practical research into attack techniques, security
-                telemetry, detection engineering, and defensive analysis
-                using controlled lab environments.
-              </p>
-
-              <div className="project-tags">
-                <span>Threat Hunting</span>
-                <span>Detection Engineering</span>
-                <span>Log Analysis</span>
-              </div>
-            </div>
-          </article>
-
-          <article className="project-card">
-            <div className="project-number">03</div>
-
-            <div className="project-content">
-              <p className="project-type">
-                AI SECURITY
-              </p>
-
-              <h3>AI &amp; GenAI Security Research</h3>
-
-              <p>
-                Exploring emerging security risks across AI and GenAI
-                systems, including adversarial techniques, application
-                security, and defensive controls.
-              </p>
-
-              <div className="project-tags">
-                <span>OWASP</span>
-                <span>GenAI Security</span>
-                <span>AI Risk</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-{/* CONTACT */}
-<section className="contact reveal" id="contact">
-  <div className="section-inner">
-    <p className="section-label">CONTACT</p>
-
-    <h2>
-      Let's build something
-      <span>secure.</span>
-    </h2>
-
-    <p className="contact-description">
-      Interested in cybersecurity, security research, or collaborating
-      on something meaningful? Get in touch.
-    </p>
-
-    <div className="contact-links">
-      <a href="mailto:bhavyanagasai@gmail.com">
-        Email
-      </a>
-
-      <a
-        href="https://www.linkedin.com/in/bhavya-naga-sai-parvathi-kshatri-3140251a2"
-        target="_blank"
-        rel="noreferrer"
-      >
-        LinkedIn
-      </a>
-
-      <a
-        href="https://github.com/Bhavyacyber"
-        target="_blank"
-        rel="noreferrer"
-      >
-        GitHub
-      </a>
-    </div>
-  </div>
-</section>
-
-      {/* FOOTER */}
-      <footer className="site-footer">
-        <div className="footer-left">
-          <span>BHAVYA.</span>
-          <p>Cybersecurity • Research • Defense</p>
-        </div>
-
-        <div className="footer-right">
-          <span>© 2026 Bhavya</span>
-          <a href="#">Back to top ↑</a>
-        </div>
-      </footer>
-    </main>
-  </>
+      <footer className="portfolio-footer"><div><a href="#top" className="brand-mark">BHAVYA<span>.</span></a><p>CYBERSECURITY / RESEARCH / DEFENSE</p></div><span>{portfolioData.identity.name}</span><a href="#top">Back to top ↑</a></footer>
+    </>
   )
 }
 
