@@ -34,6 +34,14 @@ function App() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const name = String(formData.get('name') ?? '')
+    const email = String(formData.get('email') ?? '')
+    const message = String(formData.get('message') ?? '')
+    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`)
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)
+
+    window.location.href = `mailto:${portfolioData.links.email}?subject=${subject}&body=${body}`
     setSubmitted(true)
   }
 
