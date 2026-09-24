@@ -1613,6 +1613,8 @@ body {
 }
 
 .brand-mark span { color: var(--portfolio-accent); }
+.blog-brand { color: var(--portfolio-accent) !important; font-weight: 700; }
+.blog-brand:hover { color: var(--portfolio-text) !important; }
 
 .availability,
 .section-kicker,

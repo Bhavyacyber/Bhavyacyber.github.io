@@ -41,7 +41,7 @@ function App() {
     <>
       <Cursor />
       <header className="portfolio-nav">
-        <a href="#top" className="brand-mark">BHAVYA<span>.</span></a>
+        <a href={portfolioData.links.blog} className="brand-mark blog-brand" target="_blank" rel="noreferrer">BLOG</a>
         <span className="availability"><i /> {portfolioData.identity.availability.map((item) => <span className="availability-item" key={item}>{item}</span>)}</span>
         <button className="menu-toggle icon-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
