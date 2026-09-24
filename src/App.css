@@ -1824,6 +1824,7 @@ body {
 .contact-section { position: relative; overflow: hidden; background: #e7f3ed; }
 .contact-section::after { content: ''; position: absolute; right: -10%; bottom: -70%; width: 70vw; height: 70vw; border: 1px solid rgba(16, 32, 25, 0.12); border-radius: 50%; pointer-events: none; }
 .contact-inner { position: relative; z-index: 1; }
+.contact-inner { grid-template-columns: 1fr; }
 
 @media (max-width: 800px) {
   .portfolio-hero { padding-right: 24px; padding-left: 24px; }

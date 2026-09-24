@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight, GitBranch, Mail, Menu, X } from 'lucide-react'
-import { lazy, Suspense, useEffect, useState, type FormEvent, type ReactNode } from 'react'
+import { lazy, Suspense, useEffect, useState, type ReactNode } from 'react'
 import ThemeToggle from './components/ThemeToggle'
 import InteractivePortrait from './components/InteractivePortrait'
 import Cursor from './components/Cursor'
@@ -24,26 +24,12 @@ function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   const [menuOpen, setMenuOpen] = useState(false)
   const [filter, setFilter] = useState('ALL')
-  const [submitted, setSubmitted] = useState(false)
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
   }, [theme])
 
   const visibleProjects = filter === 'ALL' ? projects : projects.filter((project) => project.category.includes(filter))
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const name = String(formData.get('name') ?? '')
-    const email = String(formData.get('email') ?? '')
-    const message = String(formData.get('message') ?? '')
-    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`)
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)
-
-    window.location.href = `mailto:${portfolioData.links.email}?subject=${subject}&body=${body}`
-    setSubmitted(true)
-  }
 
   return (
     <>
@@ -105,7 +91,7 @@ function App() {
           <div className="timeline">{portfolioData.workshops.map((workshop) => <article key={workshop.title}><span>{workshop.meta}</span><div><h3>{workshop.title}</h3>{workshop.details.map((detail) => <p key={detail}>{detail}</p>)}</div></article>)}</div>
         </Reveal>
 
-        <section className="contact-section" id="contact"><div className="contact-inner"><div><p className="section-kicker"><span>07</span> CONTACT</p><h2>Open to the <em>right role.</em></h2><p>{portfolioData.identity.status}. Reach out by email for opportunities, research, or collaboration.</p><div className="contact-links"><a href={`mailto:${portfolioData.links.email}`}><Mail size={15} /> Email</a><a href={portfolioData.links.linkedin} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> LinkedIn</a><a href={portfolioData.links.blog} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> Security blog</a></div></div><form onSubmit={handleSubmit}><label>Name<input required name="name" placeholder="Your name" /></label><label>Email<input required type="email" name="email" placeholder="you@example.com" /></label><label>Message<textarea required name="message" placeholder="Tell me about the role or work" rows={3} /></label><button className="button button-dark" type="submit">{submitted ? 'Message ready' : 'Send inquiry'} <ArrowUpRight size={15} /></button></form></div></section>
+        <section className="contact-section" id="contact"><div className="contact-inner"><div><p className="section-kicker"><span>07</span> CONTACT</p><h2>Open to the <em>right role.</em></h2><p>{portfolioData.identity.status}. Reach out by email for opportunities, research, or collaboration.</p><div className="contact-links"><a href={`mailto:${portfolioData.links.email}`}><Mail size={15} /> Email</a><a href={portfolioData.links.linkedin} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> LinkedIn</a><a href={portfolioData.links.blog} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> Security blog</a></div></div></div></section>
       </main>
 
       <footer className="portfolio-footer"><div><a href="#top" className="brand-mark">BHAVYA<span>.</span></a><p>CYBERSECURITY / RESEARCH / DEFENSE</p></div><span>{portfolioData.identity.name}</span><a href="#top">Back to top ↑</a></footer>
