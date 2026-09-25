@@ -30,8 +30,8 @@ function CoreMesh() {
         <mesh ref={meshRef} castShadow onPointerOver={() => setActive(true)} onPointerOut={() => setActive(false)} onClick={() => setActive((value) => !value)}>
           <icosahedronGeometry args={[1.5, 2]} />
           <meshStandardMaterial
-            color={active ? '#d5ffed' : '#91ffd4'}
-            emissive="#256b59"
+            color={active ? '#d9f3ff' : '#8bd7f7'}
+            emissive="#255e78"
             emissiveIntensity={0.55}
             metalness={0.72}
             roughness={0.2}
@@ -40,13 +40,13 @@ function CoreMesh() {
         </mesh>
         <mesh ref={ringRef} rotation={[Math.PI / 2.6, 0, 0]}>
           <torusGeometry args={[2.05, 0.012, 8, 96]} />
-          <meshBasicMaterial color="#68dcae" transparent opacity={active ? 0.82 : 0.4} />
+          <meshBasicMaterial color="#64bee9" transparent opacity={active ? 0.82 : 0.4} />
         </mesh>
         <mesh scale={0.78}>
           <icosahedronGeometry args={[1.5, 2]} />
           <meshStandardMaterial
-            color="#12241f"
-            emissive="#173c32"
+            color="#12222a"
+            emissive="#174157"
             emissiveIntensity={0.5}
             metalness={0.8}
             roughness={0.3}
@@ -59,7 +59,7 @@ function CoreMesh() {
         position={[0, -2.3, 0]}
         fontSize={0.16}
         letterSpacing={0.16}
-        color="#91ffd4"
+        color="#8bd7f7"
         anchorX="center"
       >
         {active ? 'INTERACTIVE NODE' : 'LIVE SECURITY CORE'}
@@ -83,9 +83,9 @@ function InteractiveStage() {
       >
         <Suspense fallback={null}>
           <ambientLight intensity={0.5} />
-          <directionalLight position={[3, 4, 4]} intensity={2.2} color="#d4fff0" castShadow />
-          <pointLight position={[-3, -2, 2]} intensity={16} distance={8} color="#2cbd91" />
-          <Sparkles count={70} scale={[6, 5, 4]} size={1.8} speed={0.22} color="#79e7bd" />
+          <directionalLight position={[3, 4, 4]} intensity={2.2} color="#ddf5ff" castShadow />
+          <pointLight position={[-3, -2, 2]} intensity={16} distance={8} color="#278ab5" />
+          <Sparkles count={70} scale={[6, 5, 4]} size={1.8} speed={0.22} color="#73c8ef" />
           <CoreMesh />
           <ContactShadows position={[0, -2.2, 0]} opacity={0.35} scale={5} blur={2.6} far={4} />
           <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.45} minPolarAngle={Math.PI / 2.5} maxPolarAngle={Math.PI / 1.7} />
