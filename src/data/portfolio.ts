@@ -2,17 +2,17 @@ export const portfolioData = {
   identity: {
     name: 'Bhavya Parvathi',
     displayName: 'Bhavya',
-    title: 'Cybersecurity Analyst (entry-level)',
-    focusAreas: ['SOC Analyst', 'Application Security / VAPT', 'Threat Intelligence'],
-    status: 'Open to entry-level security roles',
-    availability: ['Open to entry-level security roles', 'Open to open source collaborations', 'Open to security research'],
+    title: 'AI Application Security Analyst (entry-level)',
+    focusAreas: ['AI Application Security', 'LLM Security', 'Application Security Research'],
+    status: 'Open to entry-level AI application security roles',
+    availability: ['Open to AI application security roles', 'Open to security research', 'Open to open source collaborations'],
     location: 'India / open to remote',
   },
   about: {
-    copy: 'I study how systems fail under attack, with a focus on SOC detection, application security testing, and threat intelligence. I learn by building: a Wazuh and Sysmon detection lab with custom rules mapped to MITRE ATT&CK, a vulnerability assessment of OWASP Juice Shop, and phishing investigations. I write up what I learn on my security blog, and I\'m currently a cybersecurity architecture research intern.',
+    copy: 'I explore security at the intersection of AI and cybersecurity. My hands-on work includes testing prompt-injection scenarios in a sandbox, examining security considerations for AI-assisted SOC systems, and contributing to an AI cyber-safety prototype. I also bring application-security and Android APK analysis experience, and I\'m currently a cybersecurity research architect intern.',
     facts: [
-      ['Current', 'Cybersecurity Architecture Research Intern'],
-      ['Focus', 'SOC detection, AppSec / VAPT, threat intelligence'],
+      ['Current', 'Cybersecurity Research Architect Intern'],
+      ['Focus', 'AI application security, LLM security, prompt injection'],
       ['Writes', 'Personal security blog'],
       ['Learning by', 'Hands-on labs, workshops, certifications'],
     ],
@@ -23,9 +23,10 @@ export const portfolioData = {
       company: 'iTelematics',
       period: '2026',
       details: [
-        'Contributed to a Cyber Attack Simulation Platform using React, FastAPI, PostgreSQL, JWT, Docker, and GitHub, including simulator integration, SIM-005 development, API testing, and workflow validation.',
-        'Built detection-simulation tooling with mock_generator.py, ai_explainer.py, and streamlit_app.py for synthetic security events, anomaly evaluation, and plain-English AI threat reporting.',
-        'Expanded unit and end-to-end pytest coverage across UI, API, and engine pipelines above 70%, while performing hands-on Android APK malware analysis.',
+        'Performed static and advanced static analysis of Android APK files to investigate application behavior and potential security risks.',
+        'Worked on cyber-attack and detection-rule simulators, contributing to simulator integration, API testing, and workflow validation.',
+        'Guided a student intern group working on offline mesh cybersecurity, supporting their research and coordination.',
+        'Applied management and leadership skills to coordinate work, support collaboration, and help keep project tasks moving.',
       ],
     },
     {
@@ -46,13 +47,6 @@ export const portfolioData = {
       category: 'AI SECURITY',
       details: 'Participated in a team hackathon focused on AI & security, building a basic working prototype of a cyber-safety layer to demystify security concepts and promote proactive, AI-aware security habits for non-technical users.',
       tags: ['AI & security', 'Cyber-safety', 'Hackathon'],
-    },
-    {
-      title: 'SOC Detection Lab — Wazuh & Sysmon',
-      meta: 'Independent Research',
-      category: 'SOC / DETECTION',
-      details: 'Built a practical Security Operations Center detection environment using Wazuh, Windows 11, Sysmon, PowerShell, Windows Firewall, and Kali Linux. Configured telemetry collection, developed custom detection rules, mapped detections to MITRE ATT&CK, and investigated Windows and firewall telemetry.',
-      tags: ['Wazuh', 'Sysmon', 'PowerShell', 'Windows Firewall', 'MITRE ATT&CK'],
     },
     {
       title: 'OWASP Juice Shop — Vulnerability Assessment (VAPT)',
@@ -89,17 +83,6 @@ export const portfolioData = {
   ],
   tutorials: [
     {
-      category: 'SOC / DETECTION',
-      title: 'Build a Windows detection lab',
-      summary: 'Connect endpoint telemetry to SIEM detections and practice validating what your rules actually catch.',
-      steps: [
-        'Collect Windows events with Sysmon in a dedicated lab environment.',
-        'Ingest the events into Wazuh and confirm the expected telemetry arrives.',
-        'Create and test a detection rule, then map it to MITRE ATT&CK.',
-      ],
-      tags: ['Wazuh', 'Sysmon', 'MITRE ATT&CK'],
-    },
-    {
       category: 'APPLICATION SECURITY',
       title: 'Practice a safe web application assessment',
       summary: 'Use an intentionally vulnerable app to learn how to test, document, and explain common web security issues.',
@@ -123,12 +106,11 @@ export const portfolioData = {
     },
   ],
   technicalAreas: [
-    { name: 'Application & Web Security', tags: ['Burp Suite', 'OWASP ZAP', 'OWASP Top 10', 'WebGoat', 'VAPT', 'Web Security'] },
-    { name: 'SOC & Detection Engineering', tags: ['Wazuh', 'Sysmon', 'SIEM', 'Windows Security', 'Detection Rules', 'MITRE ATT&CK', 'Security Telemetry'] },
+    { name: 'AI Application Security', tags: ['LLM Security', 'Prompt Injection', 'AI Threat Explanation', 'AI-Assisted SOC', 'AI Security Research'] },
+    { name: 'Application & Web Security', tags: ['Burp Suite', 'OWASP ZAP', 'OWASP Top 10', 'WebGoat', 'VAPT', 'Web Security', 'Android APK Analysis'] },
     { name: 'Network Security', tags: ['Wireshark', 'Nmap', 'TCP/IP', 'DNS', 'ICMP', 'Firewalls', 'UFW', 'iptables', 'Network Traffic Analysis'] },
     { name: 'Security Engineering', tags: ['Python', 'Bash', 'FastAPI', 'React', 'PostgreSQL', 'Docker', 'GitHub', 'Pytest', 'Streamlit'] },
-    { name: 'AI & Security', tags: ['LLM Security', 'Prompt Injection', 'AI Threat Explanation', 'AI-Assisted SOC', 'AI Security Research'] },
-    { name: 'Malware & Security Research', tags: ['Android APK Malware Analysis', 'Cyber-Attack Simulation'] },
+    { name: 'Security Research', tags: ['Cyber-Attack Simulation'] },
   ],
   links: {
     email: 'bhavyanagasai@gmail.com',

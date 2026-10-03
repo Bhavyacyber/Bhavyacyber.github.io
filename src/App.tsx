@@ -50,10 +50,10 @@ function App() {
       <main id="top">
         <section className="portfolio-hero">
           <div className="hero-copy">
-            <p className="eyebrow"><span>01</span> CYBERSECURITY / RESEARCH / DEFENSE</p>
+            <p className="eyebrow"><span>01</span> AI APPLICATION SECURITY / LLM SECURITY</p>
             <h1>{portfolioData.identity.displayName}<span>{portfolioData.identity.title}</span></h1>
             <InteractivePortrait />
-            <p className="hero-lede">I design resilient digital environments through threat detection, security research, and practical defense.</p>
+            <p className="hero-lede">I focus on application security in AI systems, including prompt-injection testing and practical research into safer AI applications.</p>
             <p className="hero-location">{portfolioData.identity.location}</p>
             <div className="availability" role="group" aria-label="Availability">
               <i />
@@ -70,7 +70,7 @@ function App() {
 
         <Reveal className="portfolio-section about-grid" id="about">
           <div className="section-kicker"><span>02</span> ABOUT THE PRACTICE</div>
-          <div className="about-story"><h2>How systems fail <em>under attack.</em></h2><p>{portfolioData.about.copy}</p></div>
+          <div className="about-story"><h2>Securing AI <em>applications.</em></h2><p>{portfolioData.about.copy}</p></div>
           <div className="facts-list">{portfolioData.about.facts.map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
         </Reveal>
 
@@ -82,7 +82,7 @@ function App() {
 
         <Reveal className="portfolio-section work-section" id="work">
           <div className="section-kicker"><span>04</span> SELECTED WORK</div>
-          <div className="section-heading"><h2>Research.<br /><em>Detection.</em><br />Defense.</h2><div className="filter-row">{['ALL', 'SOC', 'APPLICATION', 'THREAT', 'AI'].map((item) => <button className={filter === item ? 'active' : ''} key={item} type="button" onClick={() => setFilter(item)}>{item}</button>)}</div></div>
+          <div className="section-heading"><h2>AI Application<br /><em>Security.</em><br />Research.</h2><div className="filter-row">{['ALL', 'AI', 'APPLICATION', 'SOC', 'THREAT'].map((item) => <button className={filter === item ? 'active' : ''} key={item} type="button" onClick={() => setFilter(item)}>{item}</button>)}</div></div>
           <motion.div layout className="project-grid">{visibleProjects.map((project) => <motion.article layout key={project.title} className="project-tile"><div className="tile-meta"><span>{project.category}</span><ArrowUpRight size={17} /></div><h3>{project.title}</h3><p>{project.details}</p><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><span className="project-meta">{project.meta}</span></motion.article>)}</motion.div>
         </Reveal>
 
@@ -98,7 +98,7 @@ function App() {
 
         <Reveal className="portfolio-section tutorial-section" id="tutorials">
           <div className="section-kicker"><span>07</span> PRACTICAL TUTORIALS</div>
-          <div className="section-heading"><h2>Learn by<br /><em>building.</em></h2><p>Hands-on starting points for defensive security, based on the tools and labs I use.</p></div>
+          <div className="section-heading"><h2>Learn by<br /><em>testing.</em></h2><p>Practical guides to testing applications, documenting vulnerabilities, and improving security.</p></div>
           <div className="tutorial-grid">{portfolioData.tutorials.map((tutorial, index) => <motion.article key={tutorial.title} className="tutorial-card" whileHover={{ y: -6 }}><div className="tile-meta"><span>{tutorial.category}</span><span>0{index + 1}</span></div><h3>{tutorial.title}</h3><p>{tutorial.summary}</p><ol>{tutorial.steps.map((step) => <li key={step}>{step}</li>)}</ol><div className="tag-row">{tutorial.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></motion.article>)}</div>
         </Reveal>
 
