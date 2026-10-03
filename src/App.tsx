@@ -45,10 +45,6 @@ function App() {
             : <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}
           <ThemeToggle theme={theme} onToggle={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         </nav>
-        <div className="availability" role="group" aria-label="Availability">
-          <i />
-          {portfolioData.identity.availability.map((item) => <span className="availability-item" key={item}>{item}</span>)}
-        </div>
       </header>
 
       <main id="top">
@@ -59,6 +55,10 @@ function App() {
             <InteractivePortrait />
             <p className="hero-lede">I design resilient digital environments through threat detection, security research, and practical defense.</p>
             <p className="hero-location">{portfolioData.identity.location}</p>
+            <div className="availability" role="group" aria-label="Availability">
+              <i />
+              {portfolioData.identity.availability.map((item) => <span className="availability-item" key={item}>{item}</span>)}
+            </div>
             <div className="hero-actions">
               <a className="button button-primary" href="#work">Explore work <ArrowUpRight size={15} /></a>
               <a className="button button-ghost" href={portfolioData.links.cv}>View CV <ArrowUpRight size={15} /></a>
