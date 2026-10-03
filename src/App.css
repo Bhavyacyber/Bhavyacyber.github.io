@@ -1592,11 +1592,12 @@ body {
   left: 50%;
   z-index: 1000;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   width: min(1180px, calc(100% - 48px));
   min-height: 58px;
-  padding: 0 18px;
+  padding: 0 18px 10px;
   border: 1px solid var(--portfolio-line);
   border-radius: 18px;
   background: color-mix(in srgb, var(--portfolio-bg) 72%, transparent);
@@ -1629,10 +1630,10 @@ body {
   letter-spacing: 0.14em;
 }
 
-.availability { display: flex; align-items: center; gap: 10px; color: var(--portfolio-muted); }
+.availability { order: 4; display: flex; flex: 1 0 100%; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 0 -18px; padding: 9px 18px 0; border-top: 1px solid var(--portfolio-line); color: var(--portfolio-muted); }
 .availability i { width: 6px; height: 6px; border-radius: 50%; background: var(--portfolio-accent); box-shadow: 0 0 12px var(--portfolio-accent); }
 .availability-item { padding: 7px 10px; border: 1px solid var(--portfolio-line); border-radius: 999px; color: var(--portfolio-muted); font: 8px 'DM Mono', monospace; letter-spacing: .08em; white-space: nowrap; }
-.availability-item:hover { border-color: var(--portfolio-accent); color: var(--portfolio-accent); }
+.availability-item { background: color-mix(in srgb, var(--portfolio-surface) 72%, transparent); }
 .portfolio-links { display: flex; align-items: center; gap: 25px; }
 .portfolio-links a { color: var(--portfolio-muted); font-size: 12px; text-decoration: none; transition: color .2s ease; }
 .portfolio-links a:hover { color: var(--portfolio-accent); }
@@ -1719,6 +1720,17 @@ body {
 .timeline h3 { margin: 0; font-size: 28px; letter-spacing: -.04em; }
 .timeline p { max-width: 500px; margin: 12px 0 0; color: var(--portfolio-muted); line-height: 1.6; }
 
+.tutorial-section { border-top: 1px solid var(--portfolio-line); }
+.tutorial-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 70px; border-top: 1px solid var(--portfolio-line); border-left: 1px solid var(--portfolio-line); }
+.tutorial-card { display: flex; flex-direction: column; min-height: 420px; padding: 26px 24px 30px; border-right: 1px solid var(--portfolio-line); border-bottom: 1px solid var(--portfolio-line); transition: background .25s ease; }
+.tutorial-card:hover { background: rgba(139, 215, 247, 0.05); }
+.tutorial-card h3 { margin: 45px 0 16px; font-size: 25px; line-height: 1.05; letter-spacing: -.04em; }
+.tutorial-card > p { margin: 0; color: var(--portfolio-muted); font-size: 14px; line-height: 1.65; }
+.tutorial-card ol { display: grid; gap: 13px; margin: 25px 0 0; padding-left: 20px; color: var(--portfolio-muted); font-size: 12px; line-height: 1.6; }
+.tutorial-card li { padding-left: 4px; }
+.tutorial-card li::marker { color: var(--portfolio-accent); font-family: 'DM Mono', monospace; }
+.tutorial-card .tag-row { margin-top: auto; }
+
 .contact-section { padding: 130px 6vw; color: #122630; background: #e7f2f7; }
 .contact-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 100px; max-width: 1180px; margin: auto; }
 .contact-section h2 { max-width: 620px; margin: 55px 0 0; font-size: clamp(64px, 8vw, 120px); line-height: .82; letter-spacing: -.08em; }
@@ -1735,9 +1747,8 @@ body {
 .portfolio-footer > span, .portfolio-footer > a { color: var(--portfolio-muted); font: 10px 'DM Mono', monospace; text-decoration: none; }
 
 @media (max-width: 800px) {
-  .availability { display: none; }
   .menu-toggle { display: inline-grid; order: 3; }
-  .portfolio-links { display: none; position: absolute; top: 66px; right: 0; left: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 14px; border: 1px solid var(--portfolio-line); border-radius: 16px; background: var(--portfolio-bg); }
+  .portfolio-links { display: none; position: absolute; top: calc(100% + 8px); right: 0; left: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 14px; border: 1px solid var(--portfolio-line); border-radius: 16px; background: var(--portfolio-bg); }
   .portfolio-links.is-open { display: flex; }
   .portfolio-links a { padding: 12px; }
   .portfolio-hero { display: block; padding: 145px 24px 80px; }
@@ -1751,6 +1762,7 @@ body {
   .section-heading { display: block; }
   .section-heading p { margin-top: 25px; }
   .skill-grid, .project-grid { grid-template-columns: 1fr 1fr; margin-top: 50px; }
+  .tutorial-grid { grid-template-columns: 1fr 1fr; margin-top: 50px; }
   .project-tile h3 { margin-top: 55px; }
   .contact-section { padding: 90px 24px; }
   .contact-section h2 { margin-top: 45px; font-size: clamp(58px, 15vw, 92px); }
@@ -1758,13 +1770,13 @@ body {
 
 @media (max-width: 520px) {
   .portfolio-nav { width: calc(100% - 28px); top: 8px; }
-  .portfolio-hero { padding-top: 128px; }
+  .portfolio-hero { padding-top: 168px; }
   .eyebrow { line-height: 1.5; }
   .hero-copy h1 { font-size: 72px; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-socials { margin-top: 28px; }
   .profile-float { position: relative; right: auto; bottom: auto; margin: 34px 0 0 auto; width: 172px; height: 230px; }
-  .skill-grid, .project-grid { grid-template-columns: 1fr; }
+  .skill-grid, .project-grid, .tutorial-grid { grid-template-columns: 1fr; }
   .skill-grid article { min-height: 150px; }
   .timeline article { grid-template-columns: 1fr; gap: 15px; }
   .contact-section h2 { font-size: 60px; }

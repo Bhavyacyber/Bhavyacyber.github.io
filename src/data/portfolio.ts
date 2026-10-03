@@ -87,6 +87,41 @@ export const portfolioData = {
       ],
     },
   ],
+  tutorials: [
+    {
+      category: 'SOC / DETECTION',
+      title: 'Build a Windows detection lab',
+      summary: 'Connect endpoint telemetry to SIEM detections and practice validating what your rules actually catch.',
+      steps: [
+        'Collect Windows events with Sysmon in a dedicated lab environment.',
+        'Ingest the events into Wazuh and confirm the expected telemetry arrives.',
+        'Create and test a detection rule, then map it to MITRE ATT&CK.',
+      ],
+      tags: ['Wazuh', 'Sysmon', 'MITRE ATT&CK'],
+    },
+    {
+      category: 'APPLICATION SECURITY',
+      title: 'Practice a safe web application assessment',
+      summary: 'Use an intentionally vulnerable app to learn how to test, document, and explain common web security issues.',
+      steps: [
+        'Run OWASP Juice Shop locally or in another authorized lab.',
+        'Use Burp Suite or OWASP ZAP to examine authentication, access control, and input handling.',
+        'Record reproducible findings, impact, and remediation with OWASP Top 10 context.',
+      ],
+      tags: ['OWASP Juice Shop', 'Burp Suite', 'OWASP Top 10'],
+    },
+    {
+      category: 'THREAT INTELLIGENCE',
+      title: 'Triage a suspicious email',
+      summary: 'Follow a repeatable process to inspect email evidence and organize indicators for investigation.',
+      steps: [
+        'Review sender details and SPF/DKIM authentication results in the message headers.',
+        'Extract suspicious domains, URLs, and other indicators without opening them.',
+        'Document evidence and a clear triage rationale for follow-up.',
+      ],
+      tags: ['Phishing', 'Email headers', 'IOCs'],
+    },
+  ],
   technicalAreas: [
     { name: 'Application & Web Security', tags: ['Burp Suite', 'OWASP ZAP', 'OWASP Top 10', 'WebGoat', 'VAPT', 'Web Security'] },
     { name: 'SOC & Detection Engineering', tags: ['Wazuh', 'Sysmon', 'SIEM', 'Windows Security', 'Detection Rules', 'MITRE ATT&CK', 'Security Telemetry'] },

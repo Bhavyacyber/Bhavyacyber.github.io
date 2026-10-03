@@ -36,14 +36,19 @@ function App() {
       <Cursor />
       <header className="portfolio-nav">
         <a href={portfolioData.links.blog} className="brand-mark blog-brand" target="_blank" rel="noreferrer">BLOG</a>
-        <span className="availability"><i /> {portfolioData.identity.availability.map((item) => <span className="availability-item" key={item}>{item}</span>)}</span>
         <button className="menu-toggle icon-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
         <nav className={`portfolio-links ${menuOpen ? 'is-open' : ''}`}>
-          {['About', 'Skills', 'Work', 'Experience', 'Workshops', 'Contact'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}
+          {['About', 'Skills', 'Work', 'Experience', 'Workshops', 'Tutorials', 'Contact'].map((item) => item === 'Tutorials'
+            ? <a key={item} href="https://bhavyacyber.github.io/tutorials/" onClick={() => setMenuOpen(false)}>{item}</a>
+            : <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}
           <ThemeToggle theme={theme} onToggle={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         </nav>
+        <div className="availability" role="group" aria-label="Availability">
+          <i />
+          {portfolioData.identity.availability.map((item) => <span className="availability-item" key={item}>{item}</span>)}
+        </div>
       </header>
 
       <main id="top">
@@ -91,7 +96,13 @@ function App() {
           <div className="timeline">{portfolioData.workshops.map((workshop) => <article key={workshop.title}><span>{workshop.meta}</span><div><h3>{workshop.title}</h3>{workshop.details.map((detail) => <p key={detail}>{detail}</p>)}</div></article>)}</div>
         </Reveal>
 
-        <section className="contact-section" id="contact"><div className="contact-inner"><div><p className="section-kicker"><span>07</span> CONTACT</p><h2>Open to the <em>right role.</em></h2><p>{portfolioData.identity.status}. Reach out by email for opportunities, research, or collaboration.</p><div className="contact-links"><a href={`mailto:${portfolioData.links.email}`}><Mail size={15} /> Email</a><a href={portfolioData.links.linkedin} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> LinkedIn</a><a href={portfolioData.links.blog} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> Security blog</a></div></div></div></section>
+        <Reveal className="portfolio-section tutorial-section" id="tutorials">
+          <div className="section-kicker"><span>07</span> PRACTICAL TUTORIALS</div>
+          <div className="section-heading"><h2>Learn by<br /><em>building.</em></h2><p>Hands-on starting points for defensive security, based on the tools and labs I use.</p></div>
+          <div className="tutorial-grid">{portfolioData.tutorials.map((tutorial, index) => <motion.article key={tutorial.title} className="tutorial-card" whileHover={{ y: -6 }}><div className="tile-meta"><span>{tutorial.category}</span><span>0{index + 1}</span></div><h3>{tutorial.title}</h3><p>{tutorial.summary}</p><ol>{tutorial.steps.map((step) => <li key={step}>{step}</li>)}</ol><div className="tag-row">{tutorial.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></motion.article>)}</div>
+        </Reveal>
+
+        <section className="contact-section" id="contact"><div className="contact-inner"><div><p className="section-kicker"><span>08</span> CONTACT</p><h2>Open to the <em>right role.</em></h2><p>{portfolioData.identity.status}. Reach out by email for opportunities, research, or collaboration.</p><div className="contact-links"><a href={`mailto:${portfolioData.links.email}`}><Mail size={15} /> Email</a><a href={portfolioData.links.linkedin} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> LinkedIn</a><a href={portfolioData.links.blog} target="_blank" rel="noreferrer"><ArrowUpRight size={15} /> Security blog</a></div></div></div></section>
       </main>
 
       <footer className="portfolio-footer"><div><a href="#top" className="brand-mark">BHAVYA<span>.</span></a><p>CYBERSECURITY / RESEARCH / DEFENSE</p></div><span>{portfolioData.identity.name}</span><a href="#top">Back to top ↑</a></footer>
