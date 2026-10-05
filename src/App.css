@@ -60,6 +60,8 @@ button { color: inherit; }
   backdrop-filter: blur(18px);
 }
 .site-brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font: 600 12px var(--mono); letter-spacing: .13em; }
+.blog-nav-button { padding: 8px 12px 8px 9px; border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, transparent); box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 10%, transparent); transition: border-color .2s ease, background .2s ease, box-shadow .2s ease; }
+.blog-nav-button:hover { border-color: color-mix(in srgb, var(--accent) 68%, transparent); background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: 0 0 28px color-mix(in srgb, var(--accent) 16%, transparent); }
 .brand-symbol { display: grid; width: 24px; height: 24px; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--accent); font-size: 12px; }
 .site-brand i { color: var(--muted); font-style: normal; }
 .brand-descriptor { color: var(--accent); }
@@ -291,6 +293,7 @@ button { color: inherit; }
   html { scroll-padding-top: 84px; }
   .site-header { top: 10px; width: calc(100% - 24px); min-height: 58px; gap: 12px; padding: 0 12px; }
   .site-brand { gap: 6px; font-size: 9px; letter-spacing: .08em; }
+  .blog-nav-button { padding: 6px 8px 6px 7px; }
   .brand-symbol { width: 20px; height: 20px; font-size: 10px; }
   .brand-descriptor { display: none; }
   .primary-nav { gap: clamp(9px, 3vw, 18px); }
@@ -325,6 +328,7 @@ button { color: inherit; }
 @media (max-width: 520px) {
   .site-header { gap: 6px; padding: 0 8px; }
   .site-brand { gap: 5px; font-size: 8px; }
+  .blog-nav-button { padding: 6px 7px; }
   .brand-symbol { display: none; }
   .primary-nav { gap: 9px; }
   .primary-nav a { font-size: 9px; }

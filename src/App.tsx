@@ -142,7 +142,7 @@ function App() {
   return (
     <div className="fieldnotes-site">
       <header className="site-header">
-        <a href={portfolioData.links.blog} className="site-brand" aria-label="Open Bhavya's security blog" target="_blank" rel="noreferrer"><span className="brand-symbol">B</span><span>BLOG</span><i>/</i><span className="brand-descriptor">CYBERSECURITY</span></a>
+        <a href={portfolioData.links.blog} className="site-brand blog-nav-button" aria-label="Open Bhavya's security blog" target="_blank" rel="noreferrer"><span className="brand-symbol">B</span><span>BLOG</span><i>/</i><span className="brand-descriptor">CYBERSECURITY</span></a>
         <nav className="primary-nav" aria-label="Primary navigation">
           {primaryNavigationItems.map((item) => <a key={item.label} className={`${item.highlighted ? 'nav-link-highlight' : ''} ${'button' in item && item.button ? 'nav-link-button' : ''}`} href={item.href}>{item.label}</a>)}
         </nav>
